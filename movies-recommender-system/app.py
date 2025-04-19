@@ -6,7 +6,7 @@ from streamlit_lottie import st_lottie
 import streamlit.components.v1 as components
 import base64
 
-# Load Lottie animation from URL
+
 def load_lottieurl(url: str):
     r = requests.get(url)
     if r.status_code != 200:
@@ -46,7 +46,7 @@ def recommend(movie):
     recommended_movie_posters = []
     recommended_movie_trailers = []
 
-    for i in distances[1:36]:
+    for i in distances[1:51]:
         movie_id = movies.iloc[i[0]].movie_id
         poster, trailer = fetch_movie_details(movie_id)
         recommended_movie_posters.append(poster)
@@ -55,8 +55,9 @@ def recommend(movie):
 
     return recommended_movie_names, recommended_movie_posters, recommended_movie_trailers
 
-# --- Streamlit App ---
+
 st.set_page_config(page_title="Movie Recommender", page_icon="🎬", layout="wide")
+
 
 # Load Lottie animation
 lottie_movie = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_rp7zqvxh.json")
@@ -65,6 +66,9 @@ lottie_movie = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_rp7
 with open(r"C:\Users\Rohan\Documents\machine-learning-projects\movies-recommender-system\popcorn-emoji-492x512-rszsmz15.png", "rb") as img_file:
     # Read the image and encode it to base64
     encoded_image = base64.b64encode(img_file.read()).decode('utf-8')
+with open(r"C:\Users\Rohan\Documents\machine-learning-projects\movies-recommender-system\horror-movie-collage-a75hl41trttus1sy.jpg", "rb") as img_file:
+    encoded_bg = base64.b64encode(img_file.read()).decode()   
+
 
 # Typewriter Heading with Popcorn Cursor
 components.html(f"""
@@ -160,7 +164,7 @@ if st.button("✨ Show Recommendations"):
         st.markdown("---")
         st.subheader("🔮 You might also like:")
 
-    for row in range(7):
+    for row in range(10):
         cols = st.columns(5)
         for col in range(5):
             idx = row * 5 + col
